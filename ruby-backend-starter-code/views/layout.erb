@@ -4,14 +4,18 @@
     <link rel="stylesheet" href="/style.css">
   </head>
   <body>
-    <h1>Tun.r</h1>
     <nav>
       <!-- <a href="/songs">Songs</a>
       <a href="/artists">Artists</a>
       <a href="/playlists">Playlists</a> -->
     </nav>
     <%= yield %>
-    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <div class="fave-box">
+        <ul class="fave-list">
+            
+        </ul>
+    </div>
+    <script src="js/jquery.js"></script>
     <script src="js/movie_browser.js"></script>
   </body>
 </html>

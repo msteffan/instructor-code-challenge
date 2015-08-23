@@ -34,10 +34,12 @@ function show(imdbId) {
   var url = 'http://www.omdbapi.com/?i='+imdbId;
 
   $.getJSON(url).then(function(imdbMovieData) {
-    var detail = '<h2>' + imdbMovieData.Title + '</h2>';
+    var detail = "<h2 class='movieTitle'>" + imdbMovieData.Title + '</h2>';
     detail += '<img src="'+ imdbMovieData.Poster +'" alt="'+ imdbMovieData.Title +'">';
     $('#movie-detail').html(detail);
+    $("#movie-detail").append("<button id='addFave'>Add to favorites</button>")
   });
+
 }
 
 
@@ -58,3 +60,75 @@ $('#search').on('submit', function(evt) {
 $('#movie-select').hide().on('change', function() {
   show(this.value);
 });
+
+
+
+///// back end //////
+
+  // ajax get
+$(".test_ajax_get").on("click", function(){
+    $.ajax({
+      type: 'GET',
+      dataType: 'json',
+      url: "http://localhost:4567/users"
+    }).done(function(response) {
+      console.log(response)
+    }).fail(function(response){
+      console.log("ajax get request failed")
+    })
+})
+
+  // ajax post
+$("body").on("click", "#addFave", function(){
+    console.log("clicked");
+    var movieTitle = $(".movieTitle").html()
+    console.log(movieTitle);
+    //var userId =
+    // var photoUrl = $(".photo_url").val()
+    // var nationality = $(".nationality").val()
+    $.ajax({
+      type: 'POST',
+      data: //{ "movie":
+          { "title": movieTitle }
+          //,
+        //   user_id: userId
+        //}
+        ,
+      dataType: 'json',
+      url: "http://localhost:4567/movies"
+    }).done(function(response) {
+      console.log(response)
+    //   $("ul.articles").append("<li><a href='/artists/" + response.id + "'>" + response.name + "</a></li>")
+    }).fail(function(response){
+        console.log(response);
+        $(".fave-list").append("<li>"+ movieTitle +"</li>")
+    })
+})
+
+  // ajax put
+// $(".test_ajax_put").on("click", function(){
+//     $.ajax({
+//       type: 'PUT',
+//       {artist: {photo_url: photoUrl, name: name, nationality: nationality}},
+//       dataType: 'json',
+//       url: "http://localhost:3000/artists/6"
+//     }).done(function(response){
+//       console.log(response)
+//     }).fail(function(){
+//       console.log("failed to update")
+//     })
+// })
+//
+//   // ajax delete
+// $(".test_ajax_delete").on("click", function(){
+//     $.ajax({
+//       type: 'DELETE',
+//       dataType: 'json',
+//       url: "http://localhost:3000/artists/9"
+//     }).done(function(response){
+//       console.log("DELETED")
+//       console.log(response)
+//     }).fail(function(){
+//       console.log("failed to delete")
+//     })
+// })

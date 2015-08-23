@@ -11,7 +11,7 @@ CREATE TABLE users (
 
 CREATE TABLE movies (
     id SERIAL PRIMARY KEY,
-    title TEXT NOT NULL,
+    title TEXT,
     -- album TEXT,
     -- preview_url TEXT,
     user_id INTEGER REFERENCES users(id)
