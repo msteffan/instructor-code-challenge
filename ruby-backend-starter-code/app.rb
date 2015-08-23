@@ -1,20 +1,29 @@
 require 'sinatra'
+require 'sinatra/reloader'
+require 'active_record'
 
-get '/'
-  File.read('index.html')
+# Load the file to connect to the DB
+require_relative 'db/connection.rb'
+
+# Load models
+require_relative 'models/user'
+require_relative 'models/movie'
+
+# Load specific routes / controllers
+require_relative 'controllers/users'
+require_relative 'controllers/movies'
+
+####################
+#  General routes  #
+####################
+get '/' do
+    erb :home
 end
 
-get 'favorites' do
-  response.header['Content-Type'] = 'application/json'
-  File.read('data.json')
-end
 
-get '/favorites' do
-  file = JSON.parse(File.read('data.json'))
-  unless params[:name] && params[:oid]
-    return 'Invalid Request'
-  movie = { name: params[:name], oid: params[:oid] }
-  file << movie
-  File.write('data.json',JSON.pretty_generate(file))
-  movie.to_json
-end
+
+
+#
+# get '/'
+#   File.read('index.html')
+# end
