@@ -1,4 +1,4 @@
-# Install instructions:
+# Installation instructions:
 1) clone the repository
 
 2) switch to branch "msteffan-DIR-code"
