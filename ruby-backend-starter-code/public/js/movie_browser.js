@@ -3,8 +3,6 @@ function search(keyword) {
 
   $.getJSON(url)
   .done(function(imdbResponse){
-    // We want to use both the search keyword and the imdb response in imdbDone
-    //   We use an anonymous function to pass both.
     imdbDone(keyword, imdbResponse);
   })
   .fail(function(imdbResonse, textStatus, errorMessage){
@@ -34,8 +32,10 @@ function show(imdbId) {
   var url = 'http://www.omdbapi.com/?i='+imdbId;
 
   $.getJSON(url).then(function(imdbMovieData) {
-    var detail = "<h2 class='movieTitle'>" + imdbMovieData.Title + '</h2>';
-    detail += '<img src="'+ imdbMovieData.Poster +'" alt="'+ imdbMovieData.Title +'">';
+      console.log(imdbMovieData);
+      var url = "http://www.imdb.com/title/" + imdbMovieData.imdbID
+    var detail = "<h2 class='movieTitle'><a href=" + url + ">" + imdbMovieData.Title + '</a></h2>';
+    detail += '<img src="'+ imdbMovieData.Poster +'" alt="'+ imdbMovieData.Title +'">' + "<p>"+ imdbMovieData.Plot +"</p>";
     $('#movie-detail').html(detail);
     $("#movie-detail").append("<button id='addFave'>Add to favorites</button>")
   });
@@ -50,7 +50,6 @@ $('#search').on('submit', function(evt) {
   var $search = $('#movie-search');
   var keyword = $search.val();
   $search.val('');
-
   search(keyword);
 });
 
@@ -66,33 +65,25 @@ $('#movie-select').hide().on('change', function() {
 ///// back end //////
 
   // ajax get
-$(".test_ajax_get").on("click", function(){
-    $.ajax({
-      type: 'GET',
-      dataType: 'json',
-      url: "http://localhost:4567/users"
-    }).done(function(response) {
-      console.log(response)
-    }).fail(function(response){
-      console.log("ajax get request failed")
-    })
-})
+// $(".test_ajax_get").on("click", function(){
+//     $.ajax({
+//       type: 'GET',
+//       dataType: 'json',
+//       url: "http://localhost:4567/users"
+//     }).done(function(response) {
+//       console.log(response)
+//     }).fail(function(response){
+//       console.log("ajax get request failed")
+//     })
+// })
 
   // ajax post
 $("body").on("click", "#addFave", function(){
-    console.log("clicked");
     var movieTitle = $(".movieTitle").html()
-    console.log(movieTitle);
-    //var userId =
-    // var photoUrl = $(".photo_url").val()
-    // var nationality = $(".nationality").val()
     $.ajax({
       type: 'POST',
       data: //{ "movie":
           { "title": movieTitle }
-          //,
-        //   user_id: userId
-        //}
         ,
       dataType: 'json',
       url: "http://localhost:4567/movies"

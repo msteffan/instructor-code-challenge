@@ -1,17 +1,4 @@
-# get 'favorites' do
-#   response.header['Content-Type'] = 'application/json'
-#   File.read('data.json')
-# end
-#
-# get '/favorites' do
-#   file = JSON.parse(File.read('data.json'))
-#   unless params[:name] && params[:oid]
-#     return 'Invalid Request'
-#   movie = { name: params[:name], oid: params[:oid] }
-#   file << movie
-#   File.write('data.json',JSON.pretty_generate(file))
-#   movie.to_json
-# end
+
 
 #show route
 get '/users/:id.json' do
@@ -26,12 +13,6 @@ get '/users/:id' do
 end
 
 
-
-
-#new route
-# get '/users/new' do
-#     erb :"songs/new"
-# end
 
 post "/users" do
     new_user = User.create(
