@@ -1,16 +1,17 @@
+# post route
+post "/movies" do
+    new_movie = Movie.create(
+        title: params[:title]
+        # user_id: params[:user_id]
+        )
+end
+
+
+# get route
 get '/movies' do
     @movies = Movie.all
     erb :"movies/index"
 end
-
-
-post "/movies" do
-    new_movie = Movie.create(
-            title: params[:title]
-            # user_id: params[:user_id]
-            )
-end
-
 
 #update route
 get '/movies/:id/edit' do

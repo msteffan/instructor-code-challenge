@@ -1,4 +1,4 @@
-
+#
 
 #show route
 get '/users/:id.json' do
@@ -13,11 +13,11 @@ get '/users/:id' do
 end
 
 
-
+#new route
 post "/users" do
     new_user = User.create(
                 name: params[:name])
-    redirect "/users/#{new_user.id}"
+    # redirect "/users/#{new_user.id}"
 end
 
 #update route
